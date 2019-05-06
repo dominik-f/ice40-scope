@@ -23,6 +23,9 @@ sudo-prog: $(PROJ).bin
 	@echo 'Executing prog as root!!!'
 	sudo iceprogduino $< -I/dev/ttyS24 -n
 
+erase:
+	iceprogduino -I/dev/ttyS24 -e
+
 clean:
 	rm -f $(PROJ).blif $(PROJ).asc $(PROJ).bin $(PROJ).rpt
 

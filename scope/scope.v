@@ -17,7 +17,8 @@ module top(						//top module
 	ADC_CLK,
 	ADC_nOE,
 	
-	TEST_SIG
+	TEST_SIG1,
+	TEST_SIG2
 );
 
 input			CLK;				//input 100Mhz clock
@@ -38,13 +39,19 @@ input ADC_D7;
 output ADC_CLK;
 output ADC_nOE;
 
-output TEST_SIG;
+output TEST_SIG1;
+output TEST_SIG2;
 
+parameter size = 16;
 
 reg			BUT1_r;				//register to keep button 1 state
 reg			BUT2_r;				//register to keep button 2 state
 reg			LED1_r;				//LED1 value
 reg			LED2_r;				//LED2 value
+
+reg [size-1:0] counter; // Signals assigned
+wire TEST_SIG1;
+wire TEST_SIG2;
 
 
 assign LED1 = LED1_r;
@@ -56,6 +63,11 @@ always @ (posedge CLK) begin				//on each positive edge of 100Mhz clock//on each
 	
 	LED1_r <= ~BUT1_r;				//copy inversed state of button 1 to LED1_r
 	LED2_r <= ~BUT2_r;				//copy inversed state of button 2 to LED2_r
+
+	counter <= counter + 1;
+
+	TEST_SIG1 <= counter[size-1];
+	TEST_SIG2 <= counter[size-1];
 end
 
 endmodule

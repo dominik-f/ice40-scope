@@ -16,4 +16,5 @@ set_io	ADC_D7		D2
 set_io	ADC_CLK		G5
 set_io	ADC_nOE		D1
 
-set_io	TEST_SIG	F3
+set_io	TEST_SIG1	E2
+set_io	TEST_SIG2	G3
