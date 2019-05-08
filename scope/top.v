@@ -52,6 +52,9 @@ reg rTestSig2;
 
 parameter cntSize = 16;
 reg [cntSize-1:0] counter; // Signals assigned
+wire [7:0] wAdcByte;
+wire wAdcClock;
+wire wAdcnOE;
 
 
 assign LED1 = rLED1;
@@ -73,6 +76,14 @@ always @ (posedge CLK) begin
 	rTestSig1 <= counter[cntSize-1];
 	rTestSig2 <= counter[cntSize-1];
 end
+
+
+scope scope1 (
+	.iCLK        (CLK),
+	.iADC_Byte   (wAdcByte),
+	.oADC_CLK    (wAdcClock),
+	.oADC_nOE    (wAdcnOE)
+);
 
 
 endmodule // top
