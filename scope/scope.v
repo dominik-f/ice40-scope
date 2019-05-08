@@ -50,8 +50,8 @@ reg			LED1_r;				//LED1 value
 reg			LED2_r;				//LED2 value
 
 reg [size-1:0] counter; // Signals assigned
-wire TEST_SIG1;
-wire TEST_SIG2;
+reg TEST_SIG1;
+reg TEST_SIG2;
 
 
 assign LED1 = LED1_r;
@@ -69,5 +69,36 @@ always @ (posedge CLK) begin				//on each positive edge of 100Mhz clock//on each
 	TEST_SIG1 <= counter[size-1];
 	TEST_SIG2 <= counter[size-1];
 end
+
+
+
+
+
+//   1 sec      = 1Hz
+//   1 millisec = 1kHz
+// 100 nanosec  = 10kHz
+//   1 nanosec  = 1MHz
+localparam integer pStrobeCycleFrequency = 'd10_000;
+localparam integer pClkFrequency = 'd100_000_000;
+localparam integer pClkCycPerStrobeCyc = 'd10_000;	// pClkFrequency / pStrobeCycleFrequency
+localparam integer pCntBits = 14;					// log2(10E3) = 13.29
+
+reg [pCntBits-1:0] ClkCounter = 0;
+reg strobe = 0;
+
+always @ (posedge CLK) begin
+    if (ClkCounter == pClkCycPerStrobeCyc-1)
+    begin
+        ClkCounter <= 0;
+        strobe     <= 1;
+    end
+    else
+    begin
+		strobe     <= 0;
+		ClkCounter <= ClkCounter+1;
+    end
+end
+
+
 
 endmodule
