@@ -21,11 +21,11 @@ module top(
 	TEST_SIG2
 );
 
-input			CLK;				//input 100Mhz clock
-input			BUT1;				//input signal from button 1
-input			BUT2;				//input signal from button 2
-output			LED1;				//output signal to LED1
-output			LED2;				//output signal to LED2
+input CLK;				//input 100Mhz clock
+input BUT1;				//input signal from button 1
+input BUT2;				//input signal from button 2
+output LED1;			//output signal to LED1
+output LED2;			//output signal to LED2
 
 input ADC_D0;
 input ADC_D1;
@@ -42,60 +42,74 @@ output ADC_nOE;
 output TEST_SIG1;
 output TEST_SIG2;
 
+
+reg rBUT1;				//register to keep button 1 state
+reg rBUT2;				//register to keep button 2 state
+reg rLED1;				//LED1 value
+reg rLED2;				//LED2 value
+reg rTestSig1;
+reg rTestSig2;
+reg rAdcClk = 0;
+
 parameter size = 16;
-
-reg			BUT1_r;				//register to keep button 1 state
-reg			BUT2_r;				//register to keep button 2 state
-reg			LED1_r;				//LED1 value
-reg			LED2_r;				//LED2 value
-
 reg [size-1:0] counter; // Signals assigned
-reg TEST_SIG1;
-reg TEST_SIG2;
 
 
-assign LED1 = LED1_r;
-assign LED2 = LED2_r;
+//assign ADC_CLK = rAdcClk;
 
-always @ (posedge CLK) begin				//on each positive edge of 100Mhz clock//on each positive edge of 24414Hz clock
-	BUT1_r <= BUT1;					//capture button 1 state to BUT1_r
-	BUT2_r <= BUT2;					//capture button 2 state to BUT2_r
+assign LED1 = rLED1;
+assign LED2 = rLED2;
+assign TEST_SIG1 = rTestSig1;
+assign TEST_SIG2 = rTestSig2;
+
+
+always @ (posedge CLK) begin
+	rBUT1 <= BUT1;					//capture button 1 state to rBUT1
+	rBUT2 <= BUT2;					//capture button 2 state to rBUT2
 	
-	LED1_r <= ~BUT1_r;				//copy inversed state of button 1 to LED1_r
-	LED2_r <= ~BUT2_r;				//copy inversed state of button 2 to LED2_r
+	rLED1 <= ~rBUT1;				//copy inversed state of button 1 to rLED1
+	rLED2 <= ~rBUT2;				//copy inversed state of button 2 to rLED2
 
 	counter <= counter + 1;
 
-	TEST_SIG1 <= counter[size-1];
-	TEST_SIG2 <= counter[size-1];
+	// highest bit of counter generates signal
+	rTestSig1 <= counter[size-1];
+	rTestSig2 <= counter[size-1];
 end
 
 
-
+always @ (posedge CLK) begin
+	// generate 10kHz ADC clock
+	if (strobe == 1)
+	begin
+		if (rAdcClk == 0)
+			rAdcClk <= 1;
+		else
+			rAdcClk <= 0;
+	end
+end
 
 
 //   1 sec      = 1Hz
 //   1 millisec = 1kHz
 // 100 nanosec  = 10kHz
 //   1 nanosec  = 1MHz
-localparam integer pStrobeCycleFrequency = 'd10_000;
+localparam integer pStrobeCycleFrequency = 'd20_000;
 localparam integer pClkFrequency = 'd100_000_000;
-localparam integer pClkCycPerStrobeCyc = 'd10_000;	// pClkFrequency / pStrobeCycleFrequency
-localparam integer pCntBits = 14;					// log2(10E3) = 13.29
+localparam integer pClkCycPerStrobeCyc = 'd20_000;	// pClkFrequency / pStrobeCycleFrequency
+localparam integer pCntBits = 15;										// log2(20_000) = 14.29
 
 reg [pCntBits-1:0] ClkCounter = 0;
 reg strobe = 0;
 
 always @ (posedge CLK) begin
-    if (ClkCounter == pClkCycPerStrobeCyc-1)
-    begin
-        ClkCounter <= 0;
-        strobe     <= 1;
+    if (ClkCounter == pClkCycPerStrobeCyc-1) begin
+      ClkCounter <= 0;
+      strobe     <= 1;
     end
-    else
-    begin
-		strobe     <= 0;
-		ClkCounter <= ClkCounter+1;
+    else begin
+			strobe     <= 0;
+			ClkCounter <= ClkCounter+1;
     end
 end
 
