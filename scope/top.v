@@ -49,13 +49,10 @@ reg rLED1;				//LED1 value
 reg rLED2;				//LED2 value
 reg rTestSig1;
 reg rTestSig2;
-reg rAdcClk = 0;
 
-parameter size = 16;
-reg [size-1:0] counter; // Signals assigned
+parameter cntSize = 16;
+reg [cntSize-1:0] counter; // Signals assigned
 
-
-//assign ADC_CLK = rAdcClk;
 
 assign LED1 = rLED1;
 assign LED2 = rLED2;
@@ -73,46 +70,9 @@ always @ (posedge CLK) begin
 	counter <= counter + 1;
 
 	// highest bit of counter generates signal
-	rTestSig1 <= counter[size-1];
-	rTestSig2 <= counter[size-1];
+	rTestSig1 <= counter[cntSize-1];
+	rTestSig2 <= counter[cntSize-1];
 end
-
-
-always @ (posedge CLK) begin
-	// generate 10kHz ADC clock
-	if (strobe == 1)
-	begin
-		if (rAdcClk == 0)
-			rAdcClk <= 1;
-		else
-			rAdcClk <= 0;
-	end
-end
-
-
-//   1 sec      = 1Hz
-//   1 millisec = 1kHz
-// 100 nanosec  = 10kHz
-//   1 nanosec  = 1MHz
-localparam integer pStrobeCycleFrequency = 'd20_000;
-localparam integer pClkFrequency = 'd100_000_000;
-localparam integer pClkCycPerStrobeCyc = 'd20_000;	// pClkFrequency / pStrobeCycleFrequency
-localparam integer pCntBits = 15;										// log2(20_000) = 14.29
-
-reg [pCntBits-1:0] ClkCounter = 0;
-reg strobe = 0;
-
-always @ (posedge CLK) begin
-    if (ClkCounter == pClkCycPerStrobeCyc-1) begin
-      ClkCounter <= 0;
-      strobe     <= 1;
-    end
-    else begin
-			strobe     <= 0;
-			ClkCounter <= ClkCounter+1;
-    end
-end
-
 
 
 endmodule // top
