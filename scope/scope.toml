@@ -1,0 +1,7 @@
+[Config]
+PROJ_NAME = "scope"
+FILES = ["scope.v"]
+PIN_DEF = "ice40hx8k-scope.pcf"
+DEVICE = "hx8k"
+DEVICE_PNR = "8k"
+DEVICE_PACKAGE = "ct256"
