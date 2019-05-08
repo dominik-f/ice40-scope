@@ -78,6 +78,15 @@ always @ (posedge CLK) begin
 end
 
 
+assign wAdcByte[0] = ADC_D0;
+assign wAdcByte[1] = ADC_D1;
+assign wAdcByte[2] = ADC_D2;
+assign wAdcByte[3] = ADC_D3;
+assign wAdcByte[4] = ADC_D4;
+assign wAdcByte[5] = ADC_D5;
+assign wAdcByte[6] = ADC_D6;
+assign wAdcByte[7] = ADC_D7;
+
 scope scope1 (
 	.iCLK        (CLK),
 	.iADC_Byte   (wAdcByte),

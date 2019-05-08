@@ -33,8 +33,8 @@ end
 //   1 nanosec  = 1MHz
 localparam integer pStrobeCycleFrequency = 'd20_000;
 localparam integer pClkFrequency = 'd100_000_000;
-localparam integer pClkCycPerStrobeCyc = 'd20_000;	// pClkFrequency / pStrobeCycleFrequency
-localparam integer pCntBits = 15;										// log2(20_000) = 14.29
+localparam integer pClkCycPerStrobeCyc = 'd5_000; 	// pClkFrequency / pStrobeCycleFrequency
+localparam integer pCntBits = 13;										// log2(5_000) = 12.29
 
 reg [pCntBits-1:0] ClkCounter = 0;
 reg strobe = 0;
