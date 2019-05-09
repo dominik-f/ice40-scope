@@ -55,6 +55,8 @@ reg [cntSize-1:0] counter; // Signals assigned
 wire [7:0] wAdcByte;
 wire wAdcClock;
 wire wAdcnOE;
+wire wAdcData;
+wire wAdcDataValid;
 
 
 assign LED1 = rLED1;
@@ -86,10 +88,14 @@ assign wAdcByte[4] = ADC_D4;
 assign wAdcByte[5] = ADC_D5;
 assign wAdcByte[6] = ADC_D6;
 assign wAdcByte[7] = ADC_D7;
+//assign ADC_CLK = wAdcClock;
+//assign ADC_nOE = wAdcnOE;
 
 scope scope1 (
 	.iCLK        (CLK),
-	.iADC_Byte   (wAdcByte),
+	.iADC_Data   (wAdcByte),
+	.oADC_Data   (wAdcData),
+	.oData_Valid (wAdcDataValid),
 	.oADC_CLK    (wAdcClock),
 	.oADC_nOE    (wAdcnOE)
 );
