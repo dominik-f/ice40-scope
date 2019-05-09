@@ -18,7 +18,16 @@ module top(
   ADC_nOE,
   
   TEST_SIG1,
-  TEST_SIG2
+  TEST_SIG2,
+  
+  D0,
+  D1,
+  D2,
+  D3,
+  D4,
+  D5,
+  D6,
+  D7
 );
 
 input CLK;        //input 100Mhz clock
@@ -51,14 +60,14 @@ reg rTestSig1;
 reg rTestSig2;
 
 parameter cntSize = 16;
-reg [cntSize-1:0] counter; // Signals assigned
+reg [cntSize-1:0] counter;
 wire [7:0] wAdcByte;
 wire wAdcClock;
 wire wAdcnOE;
-wire wAdcData;
+wire [7:0] wAdcData;
 wire wAdcDataValid;
-wire wAdcDataDownsampled;
-wire wAdcDataValidDownsampled;
+wire [7:0] wAdcDataDownsampled;
+wire wAdcDataDownsampledValid;
 
 
 assign LED1 = rLED1;
@@ -90,8 +99,8 @@ assign wAdcByte[4] = ADC_D4;
 assign wAdcByte[5] = ADC_D5;
 assign wAdcByte[6] = ADC_D6;
 assign wAdcByte[7] = ADC_D7;
-//assign ADC_CLK = wAdcClock;
-//assign ADC_nOE = wAdcnOE;
+assign ADC_CLK = wAdcClock;
+assign ADC_nOE = wAdcnOE;
 
 scope scope1(
   .iClk         (CLK),
@@ -102,13 +111,39 @@ scope scope1(
   .oADC_nOE     (wAdcnOE)
 );
 
+
+output D0;
+output D1;
+output D2;
+output D3;
+output D4;
+output D5;
+output D6;
+output D7;
+reg [7:0] rDataOutput = 0;
+assign D0 = rDataOutput[0];
+assign D1 = rDataOutput[1];
+assign D2 = rDataOutput[2];
+assign D3 = rDataOutput[3];
+assign D4 = rDataOutput[4];
+assign D5 = rDataOutput[5];
+assign D6 = rDataOutput[6];
+assign D7 = rDataOutput[7];
+
 downsampling dwn(
   .iClk         (CLK),
   .iData        (wAdcData),
   .iData_Valid  (wAdcDataValid),
   .oData        (wAdcDataDownsampled),
-  .oData_Valid  (wAdcDataValidDownsampled)
+  .oData_Valid  (wAdcDataDownsampledValid)
 );
+
+
+always @ (posedge CLK) begin
+  if (wAdcDataDownsampledValid) begin
+    rDataOutput <= wAdcDataDownsampled;
+  end
+end
 
 
 endmodule // top

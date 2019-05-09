@@ -11,7 +11,7 @@ module scope(
 
 input iClk;				//input 100Mhz clock
 input [7:0] iADC_Data;
-output oADC_Data;
+output [7:0] oADC_Data;
 output oData_Valid;
 output oADC_CLK;
 output oADC_nOE;

@@ -18,3 +18,14 @@ set_io	ADC_nOE		D1
 
 set_io	TEST_SIG1	E2
 set_io	TEST_SIG2	G3
+
+
+
+set_io	D0  		J4
+set_io	D1  		G2
+set_io	D2  		H4
+set_io	D3  		F1
+set_io	D4  		H6
+set_io	D5  		F2
+set_io	D6  		H3
+set_io	D7  		F3

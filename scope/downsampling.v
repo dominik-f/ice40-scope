@@ -27,13 +27,13 @@ assign oData = rData;
 assign oData_Valid = rData_Valid;
 
 always @ (posedge iClk) begin
-  rData <= iData;
   rData_Valid <= 0;
 
   if (iData_Valid) begin
     if (counter == threshold - 1) begin
       counter <= 0;
       rData_Valid <= 1;
+      rData <= iData;
     end
     else begin
       counter <= counter + 1;
