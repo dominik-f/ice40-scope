@@ -51,6 +51,7 @@ output ADC_CLK;
 output ADC_nOE;
 
 
+// generate test signal with approx. 100Hz
 testmodule #(
   .pCntSize(20)
 )
@@ -65,7 +66,7 @@ t(
 );
 
 
-wire [7:0] wAdcByte;
+wire [7:0] wAdcInput;
 wire wAdcClock;
 wire wAdcnOE;
 wire [7:0] wAdcData;
@@ -73,20 +74,20 @@ wire wAdcDataValid;
 wire [7:0] wAdcDataDownsampled;
 wire wAdcDataDownsampledValid;
 
-assign wAdcByte[0] = ADC_D0;
-assign wAdcByte[1] = ADC_D1;
-assign wAdcByte[2] = ADC_D2;
-assign wAdcByte[3] = ADC_D3;
-assign wAdcByte[4] = ADC_D4;
-assign wAdcByte[5] = ADC_D5;
-assign wAdcByte[6] = ADC_D6;
-assign wAdcByte[7] = ADC_D7;
+assign wAdcInput[0] = ADC_D0;
+assign wAdcInput[1] = ADC_D1;
+assign wAdcInput[2] = ADC_D2;
+assign wAdcInput[3] = ADC_D3;
+assign wAdcInput[4] = ADC_D4;
+assign wAdcInput[5] = ADC_D5;
+assign wAdcInput[6] = ADC_D6;
+assign wAdcInput[7] = ADC_D7;
 assign ADC_CLK = wAdcClock;
 assign ADC_nOE = wAdcnOE;
 
 scope scope1(
   .iClk         (CLK),
-  .iADC_Data    (wAdcByte),
+  .iADC_Data    (wAdcInput),
   .oADC_Data    (wAdcData),
   .oData_Valid  (wAdcDataValid),
   .oADC_CLK     (wAdcClock),
