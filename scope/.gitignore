@@ -1,4 +1,1 @@
-*.bin
-*.blif
-*.asc
-*.rpt
+build
