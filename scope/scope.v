@@ -1,5 +1,5 @@
 module scope(
-	iCLK,
+	iClk,
 
 	iADC_Data,
 	oADC_Data,
@@ -9,7 +9,7 @@ module scope(
 	oADC_nOE
 );
 
-input iCLK;				//input 100Mhz clock
+input iClk;				//input 100Mhz clock
 input [7:0] iADC_Data;
 output oADC_Data;
 output oData_Valid;
@@ -26,7 +26,7 @@ assign oADC_CLK = rAdcClk;
 assign oADC_nOE = rAdcnOE;
 
 
-always @ (posedge iCLK) begin
+always @ (posedge iClk) begin
 	rAdcnOE <= 0;
 	rDataValid <= 0;
 	// generate 10MHz ADC clock and sample data at falling edge
@@ -61,7 +61,7 @@ reg [pCntBits-1:0] rStrobeCounter = 0;
 reg rStrobe = 0;
 
 // generate rStrobe
-always @ (posedge iCLK) begin
+always @ (posedge iClk) begin
 	if (rStrobeCounter == pClkCycPerStrobeCyc-1) begin
 		rStrobeCounter <= 0;
 		rStrobe <= 1;
