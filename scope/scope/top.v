@@ -128,11 +128,12 @@ downsampling dwn(
 always @ (posedge CLK) begin
   if (wAdcDataDownsampledValid) begin
     rDataOutput <= wAdcDataDownsampled;
+    rTxData <= wAdcDataDownsampled;
   end
 end
 
 
-reg [7:0] rTxData = 'h41;  // 'A'
+reg [7:0] rTxData = 0;
 wire wTxActive;
 wire wTxDataOutput;
 wire wTxDone;
