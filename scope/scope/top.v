@@ -30,7 +30,9 @@ module top(
   D7,
 
   UART_RX,
-  UART_TX
+  UART_TX,
+  UART_RX_2,
+  UART_TX_2
 );
 
 input CLK;        //input 100Mhz clock
@@ -55,6 +57,8 @@ output ADC_nOE;
 
 input UART_RX;
 output UART_TX;
+input UART_RX_2;
+output UART_TX_2;
 
 
 // generate test signal with approx. 100Hz
@@ -138,6 +142,7 @@ wire wTxActive;
 wire wTxDataOutput;
 wire wTxDone;
 assign UART_TX = wTxDataOutput;
+assign UART_TX_2 = wTxDataOutput;
 
 uart_tx tx(
   .i_Clock     (CLK),

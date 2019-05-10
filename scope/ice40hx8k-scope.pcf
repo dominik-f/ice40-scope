@@ -31,8 +31,8 @@ set_io    TEST_SIG2       G3
 # GND
 set_io    UART_RX         J2
 set_io    UART_TX         H1
-# set_io    GPIO_Pin14      G1
-# set_io    GPIO_Pin16      J5
+set_io    UART_RX_2      G1
+set_io    UART_TX_2      J5
 # set_io    GPIO_Pin18      H2
 set_io    D0              J4
 set_io    D1              G2
