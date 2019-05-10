@@ -18,11 +18,13 @@ namespace ICE40Scope
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window, IMainView
     {
+        MainViewModel viewModel;
         public MainWindow()
         {
             InitializeComponent();
+            viewModel = new MainViewModel(this);
         }
     }
 }

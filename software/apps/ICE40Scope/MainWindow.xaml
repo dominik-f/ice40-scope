@@ -5,8 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ICE40Scope"
         mc:Ignorable="d"
+        xmlns:oxy="clr-namespace:OxyPlot.Wpf;assembly=OxyPlot.Wpf"
         Title="MainWindow" Height="450" Width="800">
+
     <Grid>
-        
+        <oxy:PlotView Background="Transparent" Margin="10"
+                      BorderThickness="1" BorderBrush="Black"
+                      Grid.Row="0" Grid.Column="0"
+                      Model="{Binding MyModel}"/>
     </Grid>
 </Window>
