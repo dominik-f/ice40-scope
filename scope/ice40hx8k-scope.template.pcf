@@ -1,0 +1,44 @@
+# User IO
+# set_io    CLK             J3
+# set_io    BUT1            K11
+# set_io    BUT2            P13
+# set_io    LED1            M12
+# set_io    LED2            R16
+
+# Extension header left side
+# 5V
+# 3.3V
+# set_io    GPIO_Pin5       E4
+# set_io    GPIO_Pin7       B2
+# set_io    GPIO_Pin9       F5
+# set_io    GPIO_Pin11      B1
+# set_io    GPIO_Pin13      C1
+# set_io    GPIO_Pin15      C2
+# set_io    GPIO_Pin17      F4
+# set_io    GPIO_Pin19      D2
+# set_io    GPIO_Pin21      G5
+# set_io    GPIO_Pin23      D1
+# set_io    GPIO_Pin25      G4
+# set_io    GPIO_Pin27      E3
+# set_io    GPIO_Pin29      H5
+# set_io    GPIO_Pin31      E2
+# set_io    GPIO_Pin33      G3
+
+# Extension header right side
+# GND
+# GND
+# EXTCLK
+# GND
+# set_io    GPIO_Pin10      J2
+# set_io    GPIO_Pin12      H1
+# set_io    GPIO_Pin14      G1
+# set_io    GPIO_Pin16      J5
+# set_io    GPIO_Pin18      H2
+# set_io    GPIO_Pin20      J4
+# set_io    GPIO_Pin22      G2
+# set_io    GPIO_Pin24      H4
+# set_io    GPIO_Pin26      F1
+# set_io    GPIO_Pin28      H6
+# set_io    GPIO_Pin30      F2
+# set_io    GPIO_Pin32      H3
+# set_io    GPIO_Pin34      F3
