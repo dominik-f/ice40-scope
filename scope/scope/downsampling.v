@@ -17,8 +17,8 @@ output oData_Valid;
 
 // log2 1000  = 10
 // log2 10000 = 14
-localparam threshold = 'd1_000;
-localparam bits = 10;
+localparam threshold = 'd10_000;
+localparam bits = 14;
 reg [bits-1:0] counter = 0;
 
 reg [7:0] rData;

@@ -27,7 +27,10 @@ module top(
   D4,
   D5,
   D6,
-  D7
+  D7,
+
+  UART_RX,
+  UART_TX
 );
 
 input CLK;        //input 100Mhz clock
@@ -49,6 +52,9 @@ input ADC_D6;
 input ADC_D7;
 output ADC_CLK;
 output ADC_nOE;
+
+input UART_RX;
+output UART_TX;
 
 
 // generate test signal with approx. 100Hz
@@ -124,6 +130,22 @@ always @ (posedge CLK) begin
     rDataOutput <= wAdcDataDownsampled;
   end
 end
+
+
+reg [7:0] rTxData = 'h41;  // 'A'
+wire wTxActive;
+wire wTxDataOutput;
+wire wTxDone;
+assign UART_TX = wTxDataOutput;
+
+uart_tx tx(
+  .i_Clock     (CLK),
+  .i_Tx_DV     (wAdcDataDownsampledValid),
+  .i_Tx_Byte   (rTxData),
+  .o_Tx_Active (wTxActive),
+  .o_Tx_Serial (wTxDataOutput),
+  .o_Tx_Done   (wTxDone)
+);
 
 
 endmodule // top
