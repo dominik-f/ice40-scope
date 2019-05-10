@@ -44,17 +44,22 @@ always @ (posedge iClk) begin
 end
 
 
-//   1 sec      = 1Hz
-//   1 millisec = 1kHz
-// 100 nanosec  = 10kHz
-//   1 nanosec  = 1MHz
-localparam integer prStrobeCycleFrequency = 'd20_000_000;
-localparam integer pClkFrequency = 'd100_000_000;
+// Clock Frequency: 100MHz
+// Strobe Cycle:
+// Frequency    <->    Period           <->    Clock Cycles Per Strobe Cycle (= Clock Frequency / Strobe Cycle Frequency)
+//   1 Hz       <->      1 sec          <->    100.000.000
+//   1 kHz      <->      1 millisec     <->        100.000
+//  10 kHz      <->    100 microsec     <->         10.000
+//  20 kHz      <->     50 microsec     <->          5.000
+// 100 kHz      <->     10 microsec     <->          1.000
+//   1 MHz      <->      1 microsec     <->            100
+//  10 MHz      <->    100 nanosec      <->             10
+//  20 MHz      <->     50 nanosec      <->              5
+// 100 MHz      <->     10 nanosec      <->              1
+localparam integer pClkCycPerStrobeCyc = 'd5;
 // log2(5)      = 2.32
 // log2(5_000)  = 12.29
 // log2(10_000) = 13.29
-// log2(20_000) = 14.29
-localparam integer pClkCycPerStrobeCyc = 'd5;   // pClkFrequency / prStrobeCycleFrequency
 localparam integer pCntBits = 3;
 
 reg [pCntBits-1:0] rStrobeCounter = 0;

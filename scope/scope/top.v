@@ -52,10 +52,7 @@ output ADC_nOE;
 
 
 // generate test signal with approx. 100Hz
-testmodule #(
-  .pCntSize(20)
-)
-t(
+testmodule #(.pCntSize(20)) t(
   .iClk         (CLK),
   .iBtn1        (BUT1),
   .iBtn2        (BUT2),
