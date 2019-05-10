@@ -10,9 +10,11 @@
 // CLKS_PER_BIT = (Frequency of i_Clock)/(Frequency of UART)
 // Example: 10 MHz Clock, 115200 baud UART
 // (10000000)/(115200) = 87
+// in our case: 100E6 / 115.200 = 868 (868,056)
+// in our case: 100E6 / 921.600‬ = 217 (217,014)
   
 module uart_tx 
-  #(parameter CLKS_PER_BIT)
+  #(parameter CLKS_PER_BIT = 868, parameter CLK_COUNTER_BIS = 10)
   (
    input       i_Clock,
    input       i_Tx_DV,
@@ -28,12 +30,12 @@ module uart_tx
   parameter s_TX_STOP_BIT  = 3'b011;
   parameter s_CLEANUP      = 3'b100;
    
-  reg [2:0]    r_SM_Main     = 0;
-  reg [7:0]    r_Clock_Count = 0;
-  reg [2:0]    r_Bit_Index   = 0;
-  reg [7:0]    r_Tx_Data     = 0;
-  reg          r_Tx_Done     = 0;
-  reg          r_Tx_Active   = 0;
+  reg [2:0]                 r_SM_Main     = 0;
+  reg [CLK_COUNTER_BIS-1:0] r_Clock_Count = 0;
+  reg [2:0]                 r_Bit_Index   = 0;
+  reg [7:0]                 r_Tx_Data     = 0;
+  reg                       r_Tx_Done     = 0;
+  reg                       r_Tx_Active   = 0;
      
   always @(posedge i_Clock)
     begin

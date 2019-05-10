@@ -10,9 +10,11 @@
 // CLKS_PER_BIT = (Frequency of i_Clock)/(Frequency of UART)
 // Example: 10 MHz Clock, 115200 baud UART
 // (10000000)/(115200) = 87
+// in our case: 100E6 / 115200 = 868,056
+// in our case: 100E6 / 921.600‬ = 217 (217,014)
   
 module uart_rx 
-  #(parameter CLKS_PER_BIT)
+  #(parameter CLKS_PER_BIT = 868, parameter CLK_COUNTER_BIS = 10)
   (
    input        i_Clock,
    input        i_Rx_Serial,
@@ -29,11 +31,11 @@ module uart_rx
   reg           r_Rx_Data_R = 1'b1;
   reg           r_Rx_Data   = 1'b1;
    
-  reg [7:0]     r_Clock_Count = 0;
-  reg [2:0]     r_Bit_Index   = 0; //8 bits total
-  reg [7:0]     r_Rx_Byte     = 0;
-  reg           r_Rx_DV       = 0;
-  reg [2:0]     r_SM_Main     = 0;
+  reg [CLK_COUNTER_BIS-1:0] r_Clock_Count = 0;
+  reg [2:0]                 r_Bit_Index   = 0; //8 bits total
+  reg [7:0]                 r_Rx_Byte     = 0;
+  reg                       r_Rx_DV       = 0;
+  reg [2:0]                 r_SM_Main     = 0;
    
   // Purpose: Double-register the incoming data.
   // This allows it to be used in the UART RX Clock Domain.

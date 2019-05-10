@@ -1,7 +1,7 @@
 [Config]
 PROJ_NAME = "scope"
 TOP = "top"
-FILES = ["scope/top.v", "scope/scope.v", "scope/downsampling.v", "scope/testmodule.v"]
+FILES = ["scope/top.v", "scope/scope.v", "scope/downsampling.v", "scope/testmodule.v", "uart/uart_rx.v", "uart/uart_tx.v"]
 PIN_DEF = "ice40hx8k-scope.pcf"
 DEVICE = "hx8k"
 DEVICE_PNR = "8k"
