@@ -20,11 +20,25 @@ namespace ICE40Scope
     /// </summary>
     public partial class MainWindow : Window, IMainView
     {
-        MainViewModel viewModel;
+        MainViewModel mMainViewModel;
+
+        public event EventHandler Start;
+        public event EventHandler Stop;
+
         public MainWindow()
         {
             InitializeComponent();
-            viewModel = new MainViewModel(this);
+            mMainViewModel = new MainViewModel(this);
+        }
+
+        private void btnStart_Click(object sender, RoutedEventArgs e)
+        {
+            Start?.Invoke(sender, EventArgs.Empty);
+        }
+
+        private void btnStop_Click(object sender, RoutedEventArgs e)
+        {
+            Stop?.Invoke(sender, EventArgs.Empty);
         }
     }
 }

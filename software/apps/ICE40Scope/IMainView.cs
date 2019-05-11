@@ -9,5 +9,8 @@ namespace ICE40Scope
     public interface IMainView
     {
         object DataContext { get; set; }
+
+        event EventHandler Start;
+        event EventHandler Stop;
     }
 }
